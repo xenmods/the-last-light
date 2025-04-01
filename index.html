@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>The Last Light</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              neon: "#00f2ff",
+              "neon-pink": "#ff00e5",
+              "game-dark": "#0a0a0a",
+              "game-light": "#0a0a0a",
+            },
+            // boxShadow: {
+            //   neon: "0 0 10px #00f2ff, 0 0 20px #00f2ff",
+            //   "neon-pink": "0 0 10px #ff00e5, 0 0 20px #ff00e5",
+            // },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-game-dark text-white font-sans m-0 p-0 overflow-hidden h-screen w-screen"
+  >
+    <!-- Game Blocker / Start Screen -->
+    <div
+      id="blocker"
+      class="fixed inset-0 flex items-center justify-center bg-black/90 backdrop-blur-sm z-50"
+    >
+      <div
+        id="instructions"
+        class="text-center p-8 max-w-md bg-game-light/50 rounded-2xl border border-neon/30 shadow-neon"
+      >
+        <p
+          id="play-title"
+          class="text-5xl font-bold mb-6 text-neon tracking-wider"
+        >
+          The Last Light
+        </p>
+        <p id="play-instructions" class="text-lg mb-8 text-gray-200">
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-md mb-1"
+            >Move: WASD</span
+          ><br />
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-md mb-1"
+            >Look: MOUSE</span
+          ><br />
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-md mb-1"
+            >Jump: SPACE</span
+          ><br />
+          <span class="mt-4 block text-neon"
+            >Collect the Light Orbs before the darkness consumes
+            everything!</span
+          ><br />
+          <span class="text-neon-pink">Find the Exit Portal.</span>
+        </p>
+        <!-- Settings -->
+        <!-- <div
+          id="settings"
+          class="bg-black/50 p-5 rounded-xl border border-neon-pink/30"
+        >
+          <p class="text-neon-pink mb-3 font-bold uppercase tracking-wider">
+            Game Settings
+          </p>
+          <label class="flex items-center space-x-3 mb-3 cursor-pointer">
+            <input
+              type="checkbox"
+              id="setting-shadows"
+              class="w-5 h-5 accent-neon-pink"
+            />
+            <span class="text-gray-200 hover:text-neon-pink transition-colors"
+              >Enable Shadows</span
+            >
+          </label>
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input
+              type="checkbox"
+              id="setting-music"
+              class="w-5 h-5 accent-neon-pink"
+            />
+            <span class="text-gray-200 hover:text-neon-pink transition-colors"
+              >Enable Music</span
+            >
+          </label>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- Main Game HUD -->
+    <div id="hud" class="fixed inset-x-0 top-0 p-4 flex justify-between z-10">
+      <div
+        id="score"
+        class="bg-black/60 backdrop-blur-sm px-5 py-2 rounded-lg font-bold text-neon border-l-4 border-neon shadow-neon"
+      >
+        Orbs: 0 / 5
+      </div>
+      <div
+        id="light-level"
+        class="bg-black/60 backdrop-blur-sm px-5 py-2 rounded-lg font-bold text-neon-pink border-r-4 border-neon-pink shadow-neon-pink"
+      >
+        Light: 100% (Lvl 1)
+      </div>
+    </div>
+
+    <!-- Message Display -->
+    <div
+      id="message"
+      class="fixed top-1/4 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-md px-8 py-4 rounded-xl text-2xl font-bold text-neon border border-neon shadow-neon hidden z-20"
+    ></div>
+
+    <!-- Touch Controls Overlay -->
+    <div
+      id="touch-controls"
+      class="fixed inset-0 pointer-events-none hidden z-10"
+    >
+      <div class="absolute bottom-12 left-12 pointer-events-auto">
+        <div
+          id="touch-joystick-area"
+          class="w-[120px] h-[120px] rounded-full bg-black/40 backdrop-blur-sm border-2 border-neon/50 relative"
+        >
+          <div
+            id="touch-joystick-thumb"
+            class="w-[50px] h-[50px] rounded-full bg-neon/70 absolute top-[35px] left-[35px] shadow-neon"
+          ></div>
+        </div>
+      </div>
+      <div
+        id="touch-look-area"
+        class="absolute right-0 top-0 w-1/2 h-full pointer-events-auto"
+      ></div>
+      <div
+        id="touch-jump-button"
+        class="absolute bottom-12 right-12 bg-neon-pink/30 backdrop-blur-sm text-white px-8 py-4 rounded-full font-bold text-xl uppercase tracking-wider pointer-events-auto border-2 border-neon-pink/50 shadow-neon-pink"
+      >
+        JUMP
+      </div>
+    </div>
+
+    <canvas
+      id="gameCanvas"
+      class="absolute top-0 left-0 w-full h-full z-0"
+    ></canvas>
+
+    <!-- Import Three.js Modules -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module" src="game.js"></script>
+  </body>
+</html>

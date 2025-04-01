@@ -1,0 +1,155 @@
+body {
+  margin: 0;
+  overflow: hidden; /* Hide scrollbars */
+  font-family: Arial, sans-serif;
+  color: white;
+  background-color: #000;
+  /* Prevent pull-to-refresh and other touch gestures */
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+#gameCanvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+#blocker {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Make sure it's above canvas but below touch controls potentially */
+}
+
+#instructions {
+  width: 80%;
+  max-width: 450px;
+  cursor: default; /* Change cursor for blocker */
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(20, 20, 20, 0.9);
+  border-radius: 10px;
+  border: 1px solid #555;
+}
+#instructions[data-interactive="true"] {
+  cursor: pointer; /* Make clickable only when interaction is needed */
+}
+
+#settings {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #444;
+  font-size: 14px;
+  text-align: left; /* Align checkboxes */
+  display: inline-block; /* Center the block */
+}
+#settings label {
+  display: block; /* Each setting on new line */
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+#settings input[type="checkbox"] {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+#hud {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+  min-width: 150px;
+  z-index: 1; /* Below blocker */
+  pointer-events: none; /* Don't interfere with controls */
+}
+
+#score,
+#light-level,
+#message {
+  margin-bottom: 5px;
+}
+
+#message {
+  font-weight: bold;
+  color: yellow;
+}
+
+/* --- Touch Controls --- */
+#touch-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh; /* Cover screen */
+  z-index: 5; /* Above canvas, below blocker */
+  pointer-events: none; /* Allow clicks through transparent areas */
+  display: none; /* Initially hidden */
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: bold;
+}
+
+#touch-controls.active {
+  display: block;
+}
+
+/* Left side for movement joystick */
+#touch-joystick-area {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 120px;
+  height: 120px;
+  background-color: rgba(80, 80, 80, 0.3);
+  border-radius: 50%;
+  pointer-events: auto; /* Enable touch on this area */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#touch-joystick-thumb {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(150, 150, 150, 0.5);
+  border-radius: 50%;
+  position: absolute; /* We'll move this with JS */
+}
+
+/* Right side for looking */
+#touch-look-area {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%; /* Right half of screen */
+  height: 100%;
+  pointer-events: auto; /* Enable touch on this area */
+  /* background-color: rgba(0, 0, 255, 0.05); */ /* Optional: visualize area */
+}
+
+/* Bottom right for Jump */
+#touch-jump-button {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 80px;
+  height: 80px;
+  background-color: rgba(0, 150, 0, 0.4);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  pointer-events: auto; /* Enable touch on this area */
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none;
+}
+#touch-jump-button:active {
+  background-color: rgba(0, 200, 0, 0.6);
+}
