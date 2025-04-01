@@ -7,7 +7,6 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no"
     />
     <title>The Last Light</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -31,7 +30,18 @@
   <body
     class="bg-game-dark text-white font-sans m-0 p-0 overflow-hidden h-screen w-screen"
   >
-    <!-- Game Blocker / Start Screen -->
+    <div
+      id="loading"
+      class="fixed inset-0 flex items-center justify-center bg-black/95 backdrop-blur-lg z-[100] w-screen h-screen"
+    >
+      <div class="text-center">
+        <div
+          class="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-neon-pink mb-6"
+        ></div>
+        <p class="text-2xl font-semibold text-neon">Loading...</p>
+      </div>
+    </div>
+
     <div
       id="blocker"
       class="fixed inset-0 flex items-center justify-center bg-black/90 backdrop-blur-sm z-50"
@@ -62,39 +72,9 @@
           ><br />
           <span class="text-neon-pink">Find the Exit Portal.</span>
         </p>
-        <!-- Settings -->
-        <!-- <div
-          id="settings"
-          class="bg-black/50 p-5 rounded-xl border border-neon-pink/30"
-        >
-          <p class="text-neon-pink mb-3 font-bold uppercase tracking-wider">
-            Game Settings
-          </p>
-          <label class="flex items-center space-x-3 mb-3 cursor-pointer">
-            <input
-              type="checkbox"
-              id="setting-shadows"
-              class="w-5 h-5 accent-neon-pink"
-            />
-            <span class="text-gray-200 hover:text-neon-pink transition-colors"
-              >Enable Shadows</span
-            >
-          </label>
-          <label class="flex items-center space-x-3 cursor-pointer">
-            <input
-              type="checkbox"
-              id="setting-music"
-              class="w-5 h-5 accent-neon-pink"
-            />
-            <span class="text-gray-200 hover:text-neon-pink transition-colors"
-              >Enable Music</span
-            >
-          </label>
-        </div> -->
       </div>
     </div>
 
-    <!-- Main Game HUD -->
     <div id="hud" class="fixed inset-x-0 top-0 p-4 flex justify-between z-10">
       <div
         id="score"
@@ -110,13 +90,11 @@
       </div>
     </div>
 
-    <!-- Message Display -->
     <div
       id="message"
       class="fixed top-1/4 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-md px-8 py-4 rounded-xl text-2xl font-bold text-neon border border-neon shadow-neon hidden z-20"
     ></div>
 
-    <!-- Touch Controls Overlay -->
     <div
       id="touch-controls"
       class="fixed inset-0 pointer-events-none hidden z-10"
@@ -149,7 +127,6 @@
       class="absolute top-0 left-0 w-full h-full z-0"
     ></canvas>
 
-    <!-- Import Three.js Modules -->
     <script type="importmap">
       {
         "imports": {

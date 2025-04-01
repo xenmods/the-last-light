@@ -114,6 +114,7 @@ const joystickArea = document.getElementById("touch-joystick-area");
 const joystickThumb = document.getElementById("touch-joystick-thumb");
 const lookArea = document.getElementById("touch-look-area");
 const jumpButton = document.getElementById("touch-jump-button");
+const loadElement = document.getElementById("loading");
 
 // --- Initialization ---
 function init() {
@@ -223,6 +224,7 @@ function loadAssets(callback) {
   };
 
   console.log("Loading assets...");
+  // loadElement.classList.remove("hidden");
   // Load Textures
   groundTexture = textureLoader.load(
     TEXTURE_PATHS.ground,
@@ -373,6 +375,7 @@ function loadAssets(callback) {
     onAudioError(AUDIO_PATHS.land)
   );
   // --- End NEW ---
+  loadElement.classList.add("hidden");
 }
 
 function setupControls() {
